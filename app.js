@@ -37,6 +37,14 @@ process.chdir(__dirname);
     return;
   }
 
+  var mongoose = require('mongoose');
+
+  mongoose.connect('mongodb://localhost:27017/TBT',function(err){
+  if(err){
+    console.log(err);
+  }
+  });
+
   // Try to get `rc` dependency
   var rc;
   try {
@@ -52,13 +60,7 @@ process.chdir(__dirname);
       rc = function () { return {}; };
     }
   }
-  var mongoose;
-  mongoose = require('mongoose');
-  mongoose.connect('mongodb://localhost:27017/renita', function (err) {
-      if (err) {
-          console.log(err);
-      }
-  });
+
 
   // Start server
   sails.lift(rc('sails'));

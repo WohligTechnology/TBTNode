@@ -1,5 +1,5 @@
 /**
- * Config.js
+ * Plan.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -8,23 +8,101 @@
 var mongoose = require('mongoose');
 var Grid = require('gridfs-stream');
 var fs = require("fs");
+var fse = require('fs-extra')
 var lwip = require("lwip");
 var process = require('child_process');
 var lodash = require('lodash');
-var moment = require('moment');
 var MaxImageSize = 1200;
-var request = require("request");
-var requrl = "http://localhost:1337/";
+
 var gfs = Grid(mongoose.connections[0].db, mongoose);
 gfs.mongo = mongoose.mongo;
-var Schema = mongoose.Schema;
 
+var Schema = mongoose.Schema;
 var schema = new Schema({
-    name: String,
-    content: String,
+    name: String
 });
+
 module.exports = mongoose.model('Config', schema);
+
 var models = {
+    maxRow: 10,
+    getForeignKeys: function(schema) {
+        var arr = [];
+        _.each(schema.tree, function(n, name) {
+            if (n.key) {
+                arr.push({
+                    name: name,
+                    ref: n.ref,
+                    key: n.key
+                });
+            }
+        });
+        return arr;
+    },
+    checkRestrictedDelete: function(Model, schema, data, callback) {
+
+        var values = schema.tree;
+        var arr = [];
+        var ret = true;
+        _.each(values, function(n, key) {
+            if (n.restrictedDelete) {
+                arr.push(key);
+            }
+        });
+
+        Model.findOne({
+            "_id": data._id
+        }, function(err, data2) {
+            if (err) {
+                callback(err, null);
+            } else if (data2) {
+                _.each(arr, function(n) {
+                    if (data2[n].length !== 0) {
+                        ret = false;
+                    }
+                });
+                callback(null, ret);
+            } else {
+                callback("No Data Found", null);
+            }
+        });
+    },
+    manageArrayObject: function(Model, id, data, key, action, callback) {
+        Model.findOne({
+            "_id": id
+        }, function(err, data2) {
+            if (err) {
+                callback(err, null);
+            } else if (data2) {
+                switch (action) {
+                    case "create":
+                        {
+                            data2[key].push(data);
+                            data2[key] = _.unique(data2[key]);
+                            console.log(data2[key]);
+                            data2.update(data2, {
+                                w: 1
+                            }, callback);
+                        }
+                        break;
+                    case "delete":
+                        {
+                            _.remove(data2[key], function(n) {
+                                return (n + "") == (data + "");
+                            });
+                            data2.update(data2, {
+                                w: 1
+                            }, callback);
+                        }
+                        break;
+                }
+            } else {
+                callback("No Data Found for the ID", null);
+            }
+        });
+
+
+    },
     GlobalCallback: function(err, data, res) {
         if (err) {
             res.json({
@@ -45,6 +123,22 @@ var models = {
         if (extension == "jpeg") {
             extension = "jpg";
         }
+
+                if (extension == "pdf") {
+                  extension = "pdf";
+                  fse.copy('Config.js', 'mynewfile.js', function (err) {
+                  // fse.copy('../../uploads/pdfurl-guide.pdf', '../../uploads/mynewfile.pdf', function (err) {
+                    if (err) return console.error(err)
+                    console.log("success!")
+});
+              // var file = "../uploads/file.txt";
+              // fse.createFile(file, function(err){
+              //   console.log(err);
+              //   console.log("done");
+              // });
+                }
+
+
         var newFilename = id + "." + extension;
 
         var writestream = gfs.createWriteStream({
@@ -132,51 +226,7 @@ var models = {
             fs.unlink(filename);
         });
     },
-    email: function(data, callback) {
-        Password.find().exec(function(err, userdata) {
-            if (err) {
-                console.log(err);
-                callback(err, null);
-            } else if (userdata && userdata.length > 0) {
-                if (data.filename && data.filename !== "") {
-                    request.post({
-                        url: requrl + "config/emailReader/",
-                        json: data
-                    }, function(err, http, body) {
-                        if (err) {
-                            console.log(err);
-                            callback(err, null);
-                        } else {
-                            if (body && body.value !== false) {
-                                var sendgrid = require("sendgrid")(userdata[0].name);
-                                sendgrid.send({
-                                    to: data.email,
-                                    from: "renitaskinclinic@gmail.com",
-                                    subject: data.subject,
-                                    fromname: 'Renita Skin Clinic',
-                                    html: body
-                                }, function(err, json) {
-                                    if (err) {
-                                        callback(err, null);
-                                    } else {
-                                        callback(null, json);
-                                    }
-                                });
-                            } else {
-                                callback({ message: "Some error in html" }, null);
-                            }
-                        }
-                    });
-                } else {
-                    callback({ message: "Please provide params" }, null);
-                }
-            } else {
-                callback({ message: "No api keys found" }, null);
-            }
-        });
-    },
     readUploaded: function(filename, width, height, style, res) {
-        res.set("Content-Type", "image/jpeg");
         var readstream = gfs.createReadStream({
             filename: filename
         });
@@ -285,33 +335,12 @@ var models = {
                                 newHeight = height;
                             }
                             image.resize(parseInt(newWidth), parseInt(newHeight), function(err, image2) {
-
-                                if (style == "cover") {
-
-                                    image2.crop(parseInt(width), parseInt(height), function(err, image3) {
-                                        if (err) {
-
-                                        } else {
-
-                                            image3.writeFile('./.tmp/uploads/' + filename, function(err) {
-                                                writer2('./.tmp/uploads/' + filename, newNameExtire, {
-                                                    width: newWidth,
-                                                    height: newHeight
-                                                });
-                                            });
-                                        }
+                                image2.writeFile('./.tmp/uploads/' + filename, function(err) {
+                                    writer2('./.tmp/uploads/' + filename, newNameExtire, {
+                                        width: newWidth,
+                                        height: newHeight
                                     });
-
-
-
-                                } else {
-                                    image2.writeFile('./.tmp/uploads/' + filename, function(err) {
-                                        writer2('./.tmp/uploads/' + filename, newNameExtire, {
-                                            width: newWidth,
-                                            height: newHeight
-                                        });
-                                    });
-                                }
+                                });
                             });
                         });
                     });
@@ -322,6 +351,7 @@ var models = {
             readstream.pipe(res);
         }
         //error handling, e.g. file does not exist
-    }
+    },
+
 };
 module.exports = _.assign(module.exports, models);

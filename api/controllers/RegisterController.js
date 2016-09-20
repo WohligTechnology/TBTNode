@@ -10,8 +10,6 @@ module.exports = {
 			});
 		}
 	},
-
-
 	login: function(req, res) {
 			var callback = function(err, data) {
 					if (err || _.isEmpty(data)) {

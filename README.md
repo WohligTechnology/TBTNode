@@ -1,3 +1,3 @@
-# renitaNode
+# Sava
 
 a [Sails](http://sailsjs.org) application
