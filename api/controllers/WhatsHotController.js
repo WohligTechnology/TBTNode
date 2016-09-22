@@ -26,7 +26,7 @@ var controller = {
   },
   getOneImages:function(req,res){
     if(req.body){
-      Destination.getOneImages(req.body,res.callback);
+      WhatsHot.getOneImages(req.body,res.callback);
     }
     else {
       res.json({value:false,data:{message:"Invalid Request"}})
@@ -34,7 +34,7 @@ var controller = {
   },
   getOneVideos:function(req,res){
     if(req.body){
-      Destination.getOneVideos(req.body,res.callback);
+      WhatsHot.getOneVideos(req.body,res.callback);
     }
     else {
       res.json({value:false,data:{message:"Invalid Request"}})
@@ -42,11 +42,96 @@ var controller = {
   },
   getOnePricing:function(req,res){
     if(req.body){
-      Destination.getOnePricing(req.body,res.callback);
+      WhatsHot.getOnePricing(req.body,res.callback);
     }
     else {
       res.json({value:false,data:{message:"Invalid Request"}})
     }
   },
+  saveImages:function(req,res){
+    if(req.body){
+      WhatsHot.saveImages(req.body,res.callback);
+    }
+    else{
+      res.json({value:false,data:{message:"Invalid Request"}})
+    }
+  },
+  saveVideos:function(req,res){
+    if(req.body){
+      WhatsHot.saveVideos(req.body,res.callback);
+    }
+    else{
+      res.json({value:false,data:{message:"Invalid Request"}})
+    }
+  },
+  savePricing:function(req,res){
+    if(req.body){
+      WhatsHot.savePricing(req.body,res.callback);
+    }
+    else{
+      res.json({value:false,data:{message:"Invalid Request"}})
+    }
+  },
+  deleteImages: function(req, res) {
+if (req.body) {
+if (req.body._id && req.body._id !== "") {
+//	console.log("not valid");
+  WhatsHot.deleteImages(req.body, function(err, respo) {
+  if (err) {
+  res.json({
+  value: false,
+  data: err
+  });
+  } else {
+  res.json({
+  value: true,
+  data: respo
+  });
+  }
+  });
+  } else {
+  res.json({
+  value: false,
+  data: "Invalid Id"
+  });
+  }
+  } else {
+  res.json({
+  value: false,
+  data: "Invalid call"
+  });
+  }
+  },
+
+  deleteVideos: function(req, res) {
+if (req.body) {
+if (req.body._id && req.body._id !== "") {
+//	console.log("not valid");
+  WhatsHot.deleteVideos(req.body, function(err, respo) {
+  if (err) {
+  res.json({
+  value: false,
+  data: err
+  });
+  } else {
+  res.json({
+  value: true,
+  data: respo
+  });
+  }
+  });
+  } else {
+  res.json({
+  value: false,
+  data: "Invalid Id"
+  });
+  }
+  } else {
+  res.json({
+  value: false,
+  data: "Invalid call"
+  });
+  }
+  }
 };
 module.exports = _.assign(module.exports, controller);

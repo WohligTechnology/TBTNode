@@ -1,3 +1,4 @@
+var objectid = require("mongodb").ObjectId;
 var schema = new Schema({
     name: {
         type: String,
@@ -46,6 +47,9 @@ var schema = new Schema({
     cruiserate:{
       type:Number,
       default:0
+    },
+    date:{
+      type:Date
     },
     pricing:[{
       paxcabin1: {
@@ -194,6 +198,7 @@ var model = {
         "pricing.paxcabin1":1,
         "pricing.paxcabin2":1,
         "pricing.paxcabin3":1,
+        "pricing.text":1,
         "pricing.image":1,
         "pricing._id":1
       }
@@ -246,6 +251,145 @@ var model = {
                  }
              });
          }
-     }
+     },
+
+     saveVideos: function(data, callback) {
+           //  var product = data.product;
+           //  console.log(product);
+           // console.log("dddddd",data);
+            if (!data._id) {
+                WhatsHot.update({
+                    _id: data.WhatsHot
+                }, {
+                    $push: {
+                        videos: data
+                    }
+                }, function(err, updated) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else {
+                        callback(null, updated);
+                    }
+                });
+            } else {
+                data._id = objectid(data._id);
+                tobechanged = {};
+                var attribute = "videos.$.";
+                _.forIn(data, function(value, key) {
+                    tobechanged[attribute + key] = value;
+                });
+                WhatsHot.update({
+                    "videos._id": data._id
+                }, {
+                    $set: tobechanged
+                }, function(err, updated) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else {
+                        callback(null, updated);
+                    }
+                });
+            }
+        },
+        savePricing: function(data, callback) {
+              //  var product = data.product;
+              //  console.log(product);
+              // console.log("dddddd",data);
+               if (!data._id) {
+                   WhatsHot.update({
+                       _id: data.WhatsHot
+                   }, {
+                       $push: {
+                           pricing: data
+                       }
+                   }, function(err, updated) {
+                       if (err) {
+                           console.log(err);
+                           callback(err, null);
+                       } else {
+                           callback(null, updated);
+                       }
+                   });
+               } else {
+                   data._id = objectid(data._id);
+                   tobechanged = {};
+                   var attribute = "pricing.$.";
+                   _.forIn(data, function(value, key) {
+                       tobechanged[attribute + key] = value;
+                   });
+                   WhatsHot.update({
+                       "pricing._id": data._id
+                   }, {
+                       $set: tobechanged
+                   }, function(err, updated) {
+                       if (err) {
+                           console.log(err);
+                           callback(err, null);
+                       } else {
+                           callback(null, updated);
+                       }
+                   });
+               }
+           },
+
+     deleteImages: function(data, callback) {
+   WhatsHot.update({
+   "images._id": data._id
+   }, {
+   $pull: {
+   "images": {
+   "_id": objectid(data._id)
+   }
+   }
+   }, function(err, updated) {
+   console.log(updated);
+   if (err) {
+   console.log(err);
+   callback(err, null);
+   } else {
+   callback(null, updated);
+   }
+   });
+   },
+   deleteVideos: function(data, callback) {
+ WhatsHot.update({
+ "videos._id": data._id
+ }, {
+ $pull: {
+ "videos": {
+ "_id": objectid(data._id)
+ }
+ }
+ }, function(err, updated) {
+ console.log(updated);
+ if (err) {
+ console.log(err);
+ callback(err, null);
+ } else {
+ callback(null, updated);
+ }
+ });
+ },
+ deletePricing: function(data, callback) {
+WhatsHot.update({
+"pricing._id": data._id
+}, {
+$pull: {
+"pricing": {
+"_id": objectid(data._id)
+}
+}
+}, function(err, updated) {
+console.log(updated);
+if (err) {
+console.log(err);
+callback(err, null);
+} else {
+callback(null, updated);
+}
+});
+}
 };
 module.exports = _.assign(module.exports, exports, model);

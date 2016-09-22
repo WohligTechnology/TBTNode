@@ -12,6 +12,10 @@ var schema = new Schema({
       type: String,
       default: ""
     },
+    status: {
+        type: String,
+        enum:["true","false"]
+    },
     type:{
       type:String,
       enum:["Popular Destination","Popular Attraction"]
