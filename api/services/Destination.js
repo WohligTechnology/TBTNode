@@ -52,7 +52,16 @@ var schema = new Schema({
         type:String,
         enum:["all","day","night"]
       }
-    }]
+    }],
+    content:[{
+      name:String,
+      description:String,
+      status: {
+          type: String,
+          enum:["true","false"]
+      },
+      order:Number
+    }],
 
 });
 
@@ -103,6 +112,26 @@ var model = {
 
     })
   },
+  getContent:function(data,callback){
+      Destination.findOne({
+      _id:data._id
+    }).exec(function(err, found){
+      if(err){
+        // console.log(err);
+        callback(err, null);
+      }else {
+        // console.log(found,"000");
+        var data ={};
+        data.results = found.content;
+        if(found && found.content.length>0){
+        callback(null,data);
+      }else{
+        callback(null,{message:"No Data Found"});
+      }
+      }
+
+    })
+  },
   getOneAccomodation: function(data, callback){
     Destination.aggregate([{
       $unwind: "$accomodation"
@@ -123,6 +152,32 @@ var model = {
         callback(err, null);
       }else {
   callback(null, found[0].accomodation);
+    }});
+  },
+
+  getOneContent: function(data, callback){
+    Destination.aggregate([{
+      $unwind: "$content"
+    },{
+      $match:{
+        "content._id":objectid(data._id)
+      }
+    }
+    ,{
+      $project:{
+        "content.name":1,
+        "content.description":1,
+        "content.order":1,
+        "content.status":1,
+        "content._id":1
+      }
+    }
+  ]).exec(function(err, found){
+      if(err){
+        console.log(err);
+        callback(err, null);
+      }else {
+  callback(null, found[0].content);
     }});
   },
   getOneActivities: function(data, callback){
@@ -150,7 +205,25 @@ var model = {
   callback(null, found[0].activities);
     }});
   },
-
+  deleteContent: function(data, callback) {
+Destination.update({
+"content._id": data._id
+}, {
+$pull: {
+"content": {
+"_id": objectid(data._id)
+}
+}
+}, function(err, updated) {
+console.log(updated);
+if (err) {
+console.log(err);
+callback(err, null);
+} else {
+callback(null, updated);
+}
+});
+},
   deleteAccomodation: function(data, callback) {
 Destination.update({
 "accomodation._id": data._id
@@ -230,6 +303,48 @@ console.log("dddddd",data);
              });
          }
      },
+
+
+     saveContent: function(data, callback) {
+           //  var product = data.product;
+           //  console.log(product);
+   console.log("dddddd",data);
+            if (!data._id) {
+                Destination.update({
+                    _id: data.Destination
+                }, {
+                    $push: {
+                        content: data
+                    }
+                }, function(err, updated) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else {
+                        callback(null, updated);
+                    }
+                });
+            } else {
+                data._id = objectid(data._id);
+                tobechanged = {};
+                var attribute = "content.$.";
+                _.forIn(data, function(value, key) {
+                    tobechanged[attribute + key] = value;
+                });
+                Destination.update({
+                    "content._id": data._id
+                }, {
+                    $set: tobechanged
+                }, function(err, updated) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else {
+                        callback(null, updated);
+                    }
+                });
+            }
+        },
 
      saveActivities: function(data, callback) {
            //  var product = data.product;
