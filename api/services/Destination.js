@@ -12,6 +12,7 @@ var schema = new Schema({
       type: String,
       default: ""
     },
+    video:String,
     status: {
         type: String,
         enum:["true","false"]
@@ -169,7 +170,8 @@ var model = {
         "content.description":1,
         "content.order":1,
         "content.status":1,
-        "content._id":1
+        "content._id":1,
+        "content.video":1
       }
     }
   ]).exec(function(err, found){

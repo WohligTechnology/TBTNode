@@ -29,7 +29,7 @@ module.exports = mongoose.model('Media', schema);
 var models = {
   saveData: function(data, callback) {
     data.path="http://104.155.129.33:87/upload/readFile?file="+data.image;
-    // data.path="http://localhost:1337/upload/readFile?file="+data.image;
+    data.path="http://localhost:1337/upload/readFile?file="+data.image;
     var Media = this(data);
     Media.timestamp = new Date();
     if (data._id) {
