@@ -4,6 +4,7 @@ var schema = new Schema({
         type: String,
         default: ""
     },
+    description:String,
     banner: {
         type: String,
         default: ""
@@ -36,24 +37,7 @@ var schema = new Schema({
         ref: 'City',
         index: true
     },
-    activities:[{
-      name: {
-          type: String,
-          default: ""
-      },
-      image1:{
-          type: String,
-          default: ""
-      },
-      image2:{
-          type: String,
-          default: ""
-      },
-      type:{
-        type:String,
-        enum:["all","day","night"]
-      }
-    }],
+
     content:[{
       name:String,
       description:String,
@@ -182,31 +166,31 @@ var model = {
   callback(null, found[0].content);
     }});
   },
-  getOneActivities: function(data, callback){
-    Destination.aggregate([{
-      $unwind: "$activities"
-    },{
-      $match:{
-        "activities._id":objectid(data._id)
-      }
-    }
-    ,{
-      $project:{
-        "activities.name":1,
-        "activities.image1":1,
-        "activities.image2":1,
-        "activities.type":1,
-        "activities._id":1
-      }
-    }
-  ]).exec(function(err, found){
-      if(err){
-        console.log(err);
-        callback(err, null);
-      }else {
-  callback(null, found[0].activities);
-    }});
-  },
+  // getOneActivities: function(data, callback){
+  //   Destination.aggregate([{
+  //     $unwind: "$activities"
+  //   },{
+  //     $match:{
+  //       "activities._id":objectid(data._id)
+  //     }
+  //   }
+  //   ,{
+  //     $project:{
+  //       "activities.name":1,
+  //       "activities.image1":1,
+  //       "activities.image2":1,
+  //       "activities.type":1,
+  //       "activities._id":1
+  //     }
+  //   }
+  // ]).exec(function(err, found){
+  //     if(err){
+  //       console.log(err);
+  //       callback(err, null);
+  //     }else {
+  // callback(null, found[0].activities);
+  //   }});
+  // },
   deleteContent: function(data, callback) {
 Destination.update({
 "content._id": data._id
@@ -246,30 +230,27 @@ callback(null, updated);
 });
 },
 
-deleteActivities: function(data, callback) {
-Destination.update({
-"activities._id": data._id
-}, {
-$pull: {
-"activities": {
-"_id": objectid(data._id)
-}
-}
-}, function(err, updated) {
-console.log(updated);
-if (err) {
-console.log(err);
-callback(err, null);
-} else {
-callback(null, updated);
-}
-});
-},
+// deleteActivities: function(data, callback) {
+// Destination.update({
+// "activities._id": data._id
+// }, {
+// $pull: {
+// "activities": {
+// "_id": objectid(data._id)
+// }
+// }
+// }, function(err, updated) {
+// console.log(updated);
+// if (err) {
+// console.log(err);
+// callback(err, null);
+// } else {
+// callback(null, updated);
+// }
+// });
+// },
   saveAccomodation: function(data, callback) {
-        //  var product = data.product;
-        //  console.log(product);
-console.log("dddddd",data);
-         if (!data._id) {
+    if (!data._id) {
              Destination.update({
                  _id: data.Destination
              }, {
@@ -284,7 +265,7 @@ console.log("dddddd",data);
                      callback(null, updated);
                  }
              });
-         } else {
+    } else {
              data._id = objectid(data._id);
              tobechanged = {};
              var attribute = "accomodation.$.";
@@ -346,47 +327,45 @@ console.log("dddddd",data);
                     }
                 });
             }
-        },
-
-     saveActivities: function(data, callback) {
-           //  var product = data.product;
-           //  console.log(product);
-   console.log("dddddd",data);
-            if (!data._id) {
-                Destination.update({
-                    _id: data.Destination
-                }, {
-                    $push: {
-                        activities: data
-                    }
-                }, function(err, updated) {
-                    if (err) {
-                        console.log(err);
-                        callback(err, null);
-                    } else {
-                        callback(null, updated);
-                    }
-                });
-            } else {
-                data._id = objectid(data._id);
-                tobechanged = {};
-                var attribute = "activities.$.";
-                _.forIn(data, function(value, key) {
-                    tobechanged[attribute + key] = value;
-                });
-                Destination.update({
-                    "activities._id": data._id
-                }, {
-                    $set: tobechanged
-                }, function(err, updated) {
-                    if (err) {
-                        console.log(err);
-                        callback(err, null);
-                    } else {
-                        callback(null, updated);
-                    }
-                });
-            }
         }
+
+    //  saveActivities: function(data, callback) {
+    //         console.log("dddddd",data);
+    //         if (!data._id) {
+    //             Destination.update({
+    //                 _id: data.Destination
+    //             }, {
+    //                 $push: {
+    //                     activities: data
+    //                 }
+    //             }, function(err, updated) {
+    //                 if (err) {
+    //                     console.log(err);
+    //                     callback(err, null);
+    //                 } else {
+    //                     callback(null, updated);
+    //                 }
+    //             });
+    //         } else {
+    //             data._id = objectid(data._id);
+    //             tobechanged = {};
+    //             var attribute = "activities.$.";
+    //             _.forIn(data, function(value, key) {
+    //                 tobechanged[attribute + key] = value;
+    //             });
+    //             Destination.update({
+    //                 "activities._id": data._id
+    //             }, {
+    //                 $set: tobechanged
+    //             }, function(err, updated) {
+    //                 if (err) {
+    //                     console.log(err);
+    //                     callback(err, null);
+    //                 } else {
+    //                     callback(null, updated);
+    //                 }
+    //             });
+    //         }
+    //     }
 };
 module.exports = _.assign(module.exports, exports, model);

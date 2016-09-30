@@ -8,6 +8,11 @@ var schema = new Schema({
         type: String,
         default:""
     },
+    city: {
+        type: Schema.Types.ObjectId,
+        ref: 'City',
+        index: true
+    },
     date:{
         type: Date,
         default: Date.now()
@@ -175,7 +180,8 @@ var model = {
         "videos.thumbnail":1,
         "videos.order":1,
         "videos.text":1,
-        "videos._id":1
+        "videos._id":1,
+        "video.status":1
       }
     }
   ]).exec(function(err, found){

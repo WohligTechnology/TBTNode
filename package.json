@@ -6,6 +6,7 @@
   "keywords": [],
   "dependencies": {
     "ejs": "2.3.4",
+    "fs-extra": "^0.30.0",
     "gridfs-stream": "^1.1.1",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.0.0",
@@ -20,9 +21,11 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "~0.1.6",
+    "lodash": "^4.16.2",
     "lwip": "0.0.9",
     "md5": "^2.2.1",
-    "mongoose": "^4.5.10",
+    "mongodb": "^2.2.10",
+    "mongoose": "^4.6.1",
     "mongoose-deep-populate": "^3.0.0",
     "mongoose-middleware": "^0.2.19",
     "mongoose-timestamp": "^0.6.0",
@@ -32,7 +35,8 @@
     "sails": "~0.12.4",
     "sails-disk": "~0.10.9",
     "sails-wohlig-controller": "0.0.2",
-    "sails-wohlig-service": "0.0.6"
+    "sails-wohlig-service": "0.0.6",
+    "wohlig": "0.0.12"
   },
   "scripts": {
     "debug": "node debug app.js",
