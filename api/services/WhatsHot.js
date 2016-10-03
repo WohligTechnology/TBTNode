@@ -17,6 +17,10 @@ var schema = new Schema({
         type: Date,
         default: Date.now()
     },
+    status: {
+        type: String,
+        enum:["true","false"]
+    },
     images:[{
       image:{
           type: String,

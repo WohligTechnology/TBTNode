@@ -23,6 +23,10 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'City',
         index: true
+    },
+    status: {
+        type: String,
+        enum:["true","false"]
     }
 });
 
