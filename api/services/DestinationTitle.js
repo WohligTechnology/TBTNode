@@ -1,24 +1,24 @@
+var objectid = require("mongodb").ObjectId;
 var schema = new Schema({
-  image:{
-    type:String
+  title: {
+    type: String,
+    default: ""
   },
-  order: {
-      type: Number,
-      default: 0
+  destination: {
+    type: Schema.Types.ObjectId,
+    ref: 'Destination',
+    index: true
   },
   status: {
-      type: String,
-      enum:["true","false"]
-  },
-  url: {
-    type:String
+    type: String,
+    enum: ["true", "false"]
   }
 });
 
 schema.plugin(deepPopulate, {});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
-module.exports = mongoose.model('HomeSlider', schema);
+module.exports = mongoose.model('DestinationTitle', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {};
