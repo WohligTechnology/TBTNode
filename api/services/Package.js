@@ -4,6 +4,14 @@ var schema = new Schema({
         type: String,
         default: ""
     },
+    image:{
+      type:String,
+      default:""
+    },
+    banner:{
+      type:String,
+      default:""
+    },
     duration:{
       type:String,
       default:""
@@ -16,20 +24,24 @@ var schema = new Schema({
         type: String,
         enum:["true","false"]
     },
-    city: {
+    destination: [{
         type: Schema.Types.ObjectId,
-        ref: 'City',
+        ref: 'Destination',
         index: true
-    },
+    }],
     pack:[{
       day:String,
       image:String,
       description:String,
-      activities: [{
-          type: Schema.Types.ObjectId,
-          ref: 'Activities',
-          index: true
-      }]
+      status: {
+          type: String,
+          enum:["true","false"]
+      }
+      // activities: [{
+      //     type: Schema.Types.ObjectId,
+      //     ref: 'Activities',
+      //     index: true
+      // }]
     }]
 });
 
@@ -75,6 +87,7 @@ var model = {
         "pack.image":1,
         "pack.description":1,
         "pack.day":1,
+        "pack.status":1,
         "pack.activities":1
       }
     }

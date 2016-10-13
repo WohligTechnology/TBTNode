@@ -12,11 +12,6 @@ var schema = new Schema({
         type: Boolean,
         default: ""
     },
-    city: {
-        type: Schema.Types.ObjectId,
-        ref: 'City',
-        index: true
-    },
     fromDate: {
         type: Date,
         default: Date.now()
@@ -32,6 +27,10 @@ var schema = new Schema({
     image: {
         type: String,
         default: ""
+    },
+    tableImage:{
+      type: String,
+      default: ""
     },
     status: {
         type: String,
@@ -70,28 +69,10 @@ var schema = new Schema({
         }
     }],
     cruiserate: {
-        type: Number,
-        default: 0
-    },
-    pricing: [{
-        paxcabin1: {
-            type: String,
-            default: ""
-        },
-        paxcabin2: {
-            type: String,
-            default: ""
-        },
-        paxcabin3: {
-            type: String,
-            default: ""
-        },
-        text: {
-            type: String,
-            default: ""
-        }
-    }]
-});
+        type: String,
+        default: ""
+    }
+  });
 
 schema.plugin(deepPopulate, {});
 schema.plugin(uniqueValidator);
@@ -134,7 +115,7 @@ var model = {
                 // console.log(found,"000");
                 var data = {};
                 data.results = found.videos;
-                if (found && found.videos.length > 0) {
+                if (found) {
                     callback(null, data);
                 } else {
                     callback(null, {

@@ -15,15 +15,19 @@ var schema = new Schema({
         type: String,
         default: ""
     },
+    image3:{
+        type: String,
+        default: ""
+    },
     type:{
       type:String,
       enum:["all","day","night"]
     },
-    city: {
+    destination: [{
         type: Schema.Types.ObjectId,
-        ref: 'City',
+        ref: 'Destination',
         index: true
-    },
+    }],
     status: {
         type: String,
         enum:["true","false"]

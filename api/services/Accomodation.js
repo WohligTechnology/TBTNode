@@ -1,27 +1,18 @@
 var schema = new Schema({
-  image:{
-    type:String
-  },
-  image2:{
-    type:String
-  },
-  order: {
-      type: Number,
-      default: 0
-  },
-  status: {
-      type: String,
-      enum:["true","false"]
-  },
-  url: {
-    type:String
-  }
+    banner:{
+        type: String,
+        default: ""
+    },
+    status: {
+        type: String,
+        enum:["true","false"]
+    }
 });
 
 schema.plugin(deepPopulate, {});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
-module.exports = mongoose.model('HomeSlider', schema);
+module.exports = mongoose.model('Accomodation', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {};

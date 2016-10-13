@@ -13,10 +13,10 @@ var schema = new Schema({
     type: String,
     default: ""
   },
-  image: {
-    type: String,
-    default: ""
-  },
+  // image: {
+  //   type: String,
+  //   default: ""
+  // },
   video: String,
   status: {
     type: String,
@@ -24,23 +24,13 @@ var schema = new Schema({
   },
   type: {
     type: String,
-    enum: ["None","Popular Destination", "Popular Attraction"]
-  },
-  accomodation: [{
-    image: {
-      type: String,
-      default: ""
-    },
-    hotelName: {
-      type: String,
-      default: ""
-    }
-  }],
-  city: {
-    type: Schema.Types.ObjectId,
-    ref: 'City',
-    index: true
+    enum: ["None","Popular Destination"]
   }
+  // city: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'City',
+  //   index: true
+  // }
 });
 
 schema.plugin(deepPopulate, {});
