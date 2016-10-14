@@ -4,23 +4,23 @@ var schema = new Schema({
     type: String,
     default: ""
   },
-  isSlider: {
-    type: Number,
-    default: 0
-  },
   description: String,
   banner: {
     type: String,
     default: ""
   },
-  // image: {
-  //   type: String,
-  //   default: ""
-  // },
+  image: {
+    type: String,
+    default: ""
+  },
   video: String,
   status: {
     type: String,
     enum: ["true", "false"]
+  },
+  isSlider: {
+    type: String,
+    enum: ["Yes", "No"]
   },
   type: {
     type: String,

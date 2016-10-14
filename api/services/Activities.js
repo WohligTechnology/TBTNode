@@ -28,9 +28,17 @@ var schema = new Schema({
         ref: 'Destination',
         index: true
     }],
+    isSlider: {
+        type: String,
+        enum:["Yes","No"]
+    },
     status: {
         type: String,
         enum:["true","false"]
+    },
+    popular: {
+      type: String,
+      enum: ["None","Popular Attraction"]
     }
 });
 

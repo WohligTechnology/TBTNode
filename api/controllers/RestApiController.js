@@ -1,6 +1,6 @@
 module.exports = _.cloneDeep(require("sails-wohlig-controller"));
 var controller = {
-    getHomeContent: function (req, res) {
+      getHomeContent: function (req, res) {
         if (req.body) {
             RestApi.getHomeContent(req.body, res.callback);
         } else {

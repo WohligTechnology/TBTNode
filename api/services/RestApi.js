@@ -21,7 +21,7 @@ var model = {
             popularDestination: function (callback) {
                 Destination.find({
                     status: "true",
-                    type: "Popular Destination"
+                    isSlider: "Yes"
                 }).exec(function (err, found) {
                     if (err) {
                         console.log(err);
@@ -34,9 +34,9 @@ var model = {
                 });
             },
             popularAttraction: function (callback) {
-                Destination.find({
+                Activities.find({
                     status: "true",
-                    type: "Popular Attraction"
+                  isSlider: "Yes"
                 }).exec(function (err, found) {
                     if (err) {
                         console.log(err);
@@ -49,8 +49,8 @@ var model = {
                 });
             },
             whatsHotBanner: function (callback) {
-                WhatsHot.find({
-                    isHome: true
+                WhatsHotSlider.find({
+                    status: "true"
                 }).exec(function (err, found) {
                     if (err) {
                         console.log(err);
@@ -71,7 +71,6 @@ var model = {
             } else {
                 callback(null, results);
             }
-            // results is now equals to: {one: 'abc\n', two: 'xyz\n'}
         });
     },
     subscribeEmail: function (data, callback) {
