@@ -4,6 +4,7 @@ var schema = new Schema({
     type: String,
     default: ""
   },
+  thumbnail:String,
   destination: {
     type: Schema.Types.ObjectId,
     ref: 'Destination',

@@ -1,17 +1,9 @@
 var schema = new Schema({
-    cityName: {
-        type: String,
-        default:""
-    },
-    country: {
-        type: String,
-        default:""
-    },
-    content:{
+    name:{
       type: String,
       default:""
     },
-    image:{
+    banner:{
       type:String,
       default:""
     },
@@ -24,7 +16,7 @@ var schema = new Schema({
 schema.plugin(deepPopulate, {});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
-module.exports = mongoose.model('City', schema);
+module.exports = mongoose.model('Banner', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {};

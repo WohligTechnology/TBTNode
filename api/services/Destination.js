@@ -14,10 +14,6 @@ var schema = new Schema({
     default: ""
   },
   video: String,
-  status: {
-    type: String,
-    enum: ["true", "false"]
-  },
   isSlider: {
     type: String,
     enum: ["Yes", "No"]
@@ -25,12 +21,20 @@ var schema = new Schema({
   type: {
     type: String,
     enum: ["None","Popular Destination"]
+  },
+  accomodation:[{
+    hotelName:String,
+    image:String,
+    status: {
+      type: String,
+      enum: ["true", "false"]
+    }
+  }],
+  status: {
+    type: String,
+    enum: ["true", "false"]
   }
-  // city: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'City',
-  //   index: true
-  // }
+
 });
 
 schema.plugin(deepPopulate, {});
@@ -51,7 +55,7 @@ var model = {
         // console.log(found,"000");
         var data = {};
         data.results = found.accomodation;
-        if (found && found.accomodation.length > 0) {
+        if (found) {
           callback(null, data);
         } else {
           callback(null, {
@@ -96,6 +100,7 @@ var model = {
       $project: {
         "accomodation.hotelName": 1,
         "accomodation.image": 1,
+        "accomodation.status": 1,
         "accomodation._id": 1
       }
     }]).exec(function (err, found) {
