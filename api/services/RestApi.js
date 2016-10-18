@@ -48,6 +48,20 @@ var model = {
                     }
                 });
             },
+            DestinationDropdown: function (callback) {
+                Destination.find({
+                    status: "true"
+                }).exec(function (err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback(null, found);
+                    }
+                });
+            },
             whatsHotBanner: function (callback) {
                 WhatsHotSlider.find({
                     status: "true"
