@@ -2,9 +2,9 @@ var schema = new Schema({
   image:{
     type:String
   },
-  // image2:{
-  //   type:String
-  // },
+  image2:{
+    type:String
+  },
   order: {
       type: Number,
       default: 0

@@ -112,6 +112,132 @@ var model = {
             }
         });
     },
+
+
+
+
+
+
+
+
+    // Start
+    DestinationPage: function (data, callback) {
+        async.parallel({
+
+            getDestination: function (callback) {
+                Destination.findOne({
+                    _id:data.id,
+                    status: "true"
+                }).exec(function (err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback(null, found);
+                    }
+                });
+            },
+
+            getTitle: function (callback) {
+                DestinationTitle.find({
+                  destination:data.id,
+                    status: "true"
+                }).exec(function (err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback(null, found);
+                    }
+                });
+            },
+            getPackage: function (callback) {
+                Package.find({
+                    destination:data.id,
+                    status: "true"
+                }).exec(function (err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback(null, found);
+                    }
+                });
+            },
+
+            getActivity: function (callback) {
+                Activities.find({
+                    destination:data.id,
+                    status: "true"
+                }).exec(function (err, found) {
+                    if (err) {
+                        console.log(err);
+                        callback(err, null);
+                    } else if (found) {
+                        callback(null, found);
+                    } else {
+                        callback(null, found);
+                    }
+                });
+            },
+
+        }, function (err, results) {
+            if (err) {
+                console.log(err);
+                callback(err, null);
+            } else if (results && results.length > 0) {
+                callback(null, results);
+            } else {
+                callback(null, results);
+            }
+        });
+    },
+
+
+
+// 2
+
+
+DestinationContent: function (data, callback) {
+    async.parallel({
+      getTitle: function (callback) {
+          DestinationContent.find({
+              destinationTitle:data.id,
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+
+    }, function (err, results) {
+        if (err) {
+            console.log(err);
+            callback(err, null);
+        } else if (results && results.length > 0) {
+            callback(null, results);
+        } else {
+            callback(null, results);
+        }
+    });
+},
+
+
+
+
+    //END
     allDestination: function (data, callback) {
         var newreturns = {};
         newreturns.data = [];
@@ -167,7 +293,7 @@ var model = {
             Slider: function (callback) {
                 Destination.find({
                     status: "true",
-                    isSlider: 1
+                    isSlider: "Yes"
                 }, {
                     content: 0,
                     accomodation: 0

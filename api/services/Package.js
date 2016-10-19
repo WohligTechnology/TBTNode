@@ -12,6 +12,10 @@ var schema = new Schema({
       type:String,
       default:""
     },
+    mobileBanner:{
+      type:String,
+      default:""
+    },
     duration:{
       type:String,
       default:""

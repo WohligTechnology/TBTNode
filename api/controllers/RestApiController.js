@@ -10,6 +10,38 @@ var controller = {
             });
         }
     },
+
+    DestinationPage: function (req, res) {
+      if (req.body) {
+          RestApi.DestinationPage(req.body, res.callback);
+      } else {
+          res.json({
+              value: false,
+              data: "Invalid Request"
+          });
+      }
+  },
+
+    DestinationContent: function (req, res) {
+      if (req.body) {
+          RestApi.DestinationContent(req.body, res.callback);
+      } else {
+          res.json({
+              value: false,
+              data: "Invalid Request"
+          });
+      }
+  },
+    Package: function (req, res) {
+      if (req.body) {
+          RestApi.Package(req.body, res.callback);
+      } else {
+          res.json({
+              value: false,
+              data: "Invalid Request"
+          });
+      }
+  },
     subscribeEmail: function (req, res) {
         if (req.body) {
             RestApi.subscribeEmail(req.body, res.callback);

@@ -8,6 +8,10 @@ var schema = new Schema({
         type: String,
         default: ""
     },
+    mobileBanner: {
+        type: String,
+        default: ""
+    },
     isHome: {
         type: Boolean,
         default: ""

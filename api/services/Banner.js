@@ -7,6 +7,10 @@ var schema = new Schema({
       type:String,
       default:""
     },
+    mobileBanner:{
+      type:String,
+      default:""
+    },
     status: {
         type: String,
         enum:["true","false"]

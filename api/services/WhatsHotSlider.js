@@ -4,6 +4,10 @@ var schema = new Schema({
         type: String,
         default: ""
     },
+    mobileBanner: {
+        type: String,
+        default: ""
+    },
     url: {
         type: String,
         default: ""

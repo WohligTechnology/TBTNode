@@ -9,6 +9,10 @@ var schema = new Schema({
     type: String,
     default: ""
   },
+  mobileBanner: {
+    type: String,
+    default: ""
+  },
   image: {
     type: String,
     default: ""
