@@ -21,6 +21,49 @@ var controller = {
           });
       }
   },
+    DestinationLand: function (req, res) {
+      if (req.body) {
+          RestApi.DestinationLand(req.body, res.callback);
+      } else {
+          res.json({
+              value: false,
+              data: "Invalid Request"
+          });
+      }
+  },
+
+ActivitiesImages: function (req, res) {
+  if (req.body) {
+      RestApi.ActivitiesImages(req.body, res.callback);
+  } else {
+      res.json({
+          value: false,
+          data: "Invalid Request"
+      });
+  }
+},
+
+WhatsHot: function (req, res) {
+  if (req.body) {
+      RestApi.WhatsHot(req.body, res.callback);
+  } else {
+      res.json({
+          value: false,
+          data: "Invalid Request"
+      });
+  }
+},
+
+    ActivitiesLand: function (req, res) {
+      if (req.body) {
+          RestApi.ActivitiesLand(req.body, res.callback);
+      } else {
+          res.json({
+              value: false,
+              data: "Invalid Request"
+          });
+      }
+  },
 
     DestinationContent: function (req, res) {
       if (req.body) {

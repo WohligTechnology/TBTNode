@@ -1,4 +1,11 @@
 var schema = new Schema({
+  order: {
+      type: Number
+  },
+  typeCart: {
+      type: String,
+      default: "Activities"
+  },
     name: {
         type: String,
         default: ""

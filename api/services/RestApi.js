@@ -234,6 +234,202 @@ DestinationContent: function (data, callback) {
     });
 },
 
+// 3
+
+
+DestinationLand: function (data, callback) {
+    async.parallel({
+      Banner: function (callback) {
+          Banner.findOne({
+              name:"Destination",
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+      popularDestination: function (callback) {
+          Destination.find({
+              type:"Popular Destination",
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+
+      allDestination: function (callback) {
+          Destination.find({
+              type:"None",
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+
+
+    }, function (err, results) {
+        if (err) {
+            console.log(err);
+            callback(err, null);
+        } else if (results && results.length > 0) {
+            callback(null, results);
+        } else {
+            callback(null, results);
+        }
+    });
+},
+
+
+///
+
+
+
+ActivitiesLand: function (data, callback) {
+    async.parallel({
+      Banner: function (callback) {
+          Banner.findOne({
+              name:"Activities",
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+      DestinationDropdown: function (callback) {
+          Destination.find({
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+
+      Images: function (callback) {
+          Activities.find({
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+
+    }, function (err, results) {
+        if (err) {
+            console.log(err);
+            callback(err, null);
+        } else if (results && results.length > 0) {
+            callback(null, results);
+        } else {
+            callback(null, results);
+        }
+    });
+},
+
+
+
+//////////
+
+
+
+ActivitiesImages: function (data, callback) {
+    async.parallel({
+      Images: function (callback) {
+          Activities.find({
+            destination:data.destination,
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+    }, function (err, results) {
+        if (err) {
+            console.log(err);
+            callback(err, null);
+        } else if (results && results.length > 0) {
+            callback(null, results);
+        } else {
+            callback(null, results);
+        }
+    });
+},
+
+
+//
+
+
+
+WhatsHot: function (data, callback) {
+    async.parallel({
+      Events: function (callback) {
+          WhatsHot.find({
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+    }, function (err, results) {
+        if (err) {
+            console.log(err);
+            callback(err, null);
+        } else if (results && results.length > 0) {
+            callback(null, results);
+        } else {
+            callback(null, results);
+        }
+    });
+},
 
 
 

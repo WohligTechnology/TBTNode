@@ -1,5 +1,9 @@
 var objectid = require("mongodb").ObjectId;
 var schema = new Schema({
+  typeCart: {
+      type: String,
+      default: "Package"
+  },
     name: {
         type: String,
         default: ""

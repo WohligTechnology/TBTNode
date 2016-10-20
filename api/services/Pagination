@@ -1,0 +1,143 @@
+{
+    "data": {
+        "options": {
+            "filters": {
+                "keyword": {
+                    "fields": [
+                        "name"
+                    ]
+                }
+            },
+            "sort": {
+                "asc": "name"
+            },
+            "start": 0,
+            "count": 10
+        },
+        "results": [
+            {
+                "_id": "5808675d0ee1eb0e5cd66df3",
+                "createdAt": "2016-10-20T06:42:37.992Z",
+                "updatedAt": "2016-10-20T06:42:37.992Z",
+                "description": "<p>kjmhnbgvfc</p>",
+                "type": "None",
+                "isSlider": "No",
+                "status": "true",
+                "__v": 0,
+                "accomodation": [],
+                "image": "580867550ee1eb0e5cd66deb.jpg",
+                "mobileBanner": "",
+                "banner": "",
+                "name": "\";/lkjhngvfd"
+            },
+            {
+                "_id": "580867210ee1eb0e5cd66ddf",
+                "createdAt": "2016-10-20T06:41:37.224Z",
+                "updatedAt": "2016-10-20T06:41:37.224Z",
+                "description": "<p>hgfvds</p>",
+                "type": "None",
+                "isSlider": "No",
+                "status": "true",
+                "__v": 0,
+                "accomodation": [],
+                "image": "5808670f0ee1eb0e5cd66dc9.jpg",
+                "mobileBanner": "",
+                "banner": "",
+                "name": "Dadar"
+            },
+            {
+                "_id": "580866e10ee1eb0e5cd66dbb",
+                "createdAt": "2016-10-20T06:40:33.059Z",
+                "updatedAt": "2016-10-20T06:40:33.059Z",
+                "description": "<p>zdxhgc</p>",
+                "type": "None",
+                "isSlider": "No",
+                "status": "true",
+                "__v": 0,
+                "accomodation": [],
+                "image": "580866d70ee1eb0e5cd66daf.jpg",
+                "mobileBanner": "",
+                "banner": "",
+                "name": "Kurla"
+            },
+            {
+                "_id": "580613b36773bf43b6fd802c",
+                "createdAt": "2016-10-18T12:21:08.015Z",
+                "updatedAt": "2016-10-18T12:21:08.015Z",
+                "type": "Popular Destination",
+                "isSlider": "Yes",
+                "status": "true",
+                "__v": 0,
+                "description": "<p>xcvbmnm,dtupiokl</p>",
+                "accomodation": [],
+                "image": "580613a76773bf43b6fd801b.jpg",
+                "mobileBanner": "",
+                "banner": "580613ab6773bf43b6fd8023.jpg",
+                "name": "Mumbai"
+            },
+            {
+                "_id": "580612236773bf43b6fd7fbe",
+                "createdAt": "2016-10-18T12:14:27.445Z",
+                "updatedAt": "2016-10-18T12:14:27.445Z",
+                "video": "sfdxgcfhj",
+                "type": "None",
+                "isSlider": "Yes",
+                "status": "true",
+                "__v": 0,
+                "description": "<p>PUNE CITY</p>",
+                "accomodation": [],
+                "image": "580612326773bf43b6fd7fc0.jpg",
+                "mobileBanner": "",
+                "banner": "580612376773bf43b6fd7fc8.jpg",
+                "name": "Pune"
+            },
+            {
+                "_id": "580865b30ee1eb0e5cd66d96",
+                "createdAt": "2016-10-20T06:35:31.659Z",
+                "updatedAt": "2016-10-20T06:35:31.659Z",
+                "description": "<p>Sion</p>",
+                "type": "None",
+                "isSlider": "Yes",
+                "status": "true",
+                "__v": 0,
+                "accomodation": [],
+                "image": "580865a50ee1eb0e5cd66d84.jpg",
+                "mobileBanner": "",
+                "banner": "580865aa0ee1eb0e5cd66d8c.jpg",
+                "name": "Sion"
+            },
+            {
+                "_id": "580867450ee1eb0e5cd66de9",
+                "createdAt": "2016-10-20T06:42:13.490Z",
+                "updatedAt": "2016-10-20T06:42:13.490Z",
+                "description": "<p>tufykgjntgrfcedx</p>",
+                "type": "None",
+                "isSlider": "No",
+                "status": "true",
+                "__v": 0,
+                "accomodation": [],
+                "image": "5808673b0ee1eb0e5cd66de1.jpg",
+                "mobileBanner": "",
+                "banner": "",
+                "name": "Thane"
+            },
+            {
+                "_id": "580867790ee1eb0e5cd66dfd",
+                "createdAt": "2016-10-20T06:43:05.089Z",
+                "updatedAt": "2016-10-20T06:43:05.089Z",
+                "description": "<p>kjhngfdsa</p>",
+                "type": "None",
+                "isSlider": "Yes",
+                "status": "true",
+                "__v": 0,
+                "accomodation": [],
+                "image": "5808676b0ee1eb0e5cd66df5.jpg",
+                "mobileBanner": "",
+                "banner": "",
+                "name": "khjgfd"
+            }
+        ],
+        "total": 8
+    },
+    "value": true
+}
