@@ -4,7 +4,11 @@ var schema = new Schema({
       type: String,
       default: "Package"
   },
-    name: {
+    title1: {
+        type: String,
+        default: ""
+    },
+    title2: {
         type: String,
         default: ""
     },

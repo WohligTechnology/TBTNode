@@ -97,7 +97,7 @@ var model = {
                 // console.log(found,"000");
                 var data = {};
                 data.results = found.images;
-                if (found && found.images.length > 0) {
+                if (found) {
                     callback(null, data);
                 } else {
                     callback(null, {

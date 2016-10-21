@@ -21,9 +21,29 @@ var controller = {
           });
       }
   },
+    Pattaya2: function (req, res) {
+      if (req.body) {
+          RestApi.Pattaya2(req.body, res.callback);
+      } else {
+          res.json({
+              value: false,
+              data: "Invalid Request"
+          });
+      }
+  },
     DestinationLand: function (req, res) {
       if (req.body) {
           RestApi.DestinationLand(req.body, res.callback);
+      } else {
+          res.json({
+              value: false,
+              data: "Invalid Request"
+          });
+      }
+  },
+    CategoryFilter: function (req, res) {
+      if (req.body) {
+          RestApi.CategoryFilter(req.body, res.callback);
       } else {
           res.json({
               value: false,
@@ -54,6 +74,17 @@ WhatsHot: function (req, res) {
   }
 },
 
+
+WhatsHotDetails: function (req, res) {
+  if (req.body) {
+      RestApi.WhatsHotDetails(req.body, res.callback);
+  } else {
+      res.json({
+          value: false,
+          data: "Invalid Request"
+      });
+  }
+},
     ActivitiesLand: function (req, res) {
       if (req.body) {
           RestApi.ActivitiesLand(req.body, res.callback);

@@ -120,7 +120,7 @@ var model = {
 
 
 
-    // Start
+    // Start     Pattaya - Page
     DestinationPage: function (data, callback) {
         async.parallel({
 
@@ -186,7 +186,6 @@ var model = {
                     }
                 });
             },
-
         }, function (err, results) {
             if (err) {
                 console.log(err);
@@ -198,6 +197,43 @@ var model = {
             }
         });
     },
+
+
+//  Pattaya - Page Activity category
+
+CategoryFilter: function (data, callback) {
+    async.parallel({
+      Category: function (callback) {
+          Activities.find({
+              destination:data.destination,
+              type:data.type,
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+
+    }, function (err, results) {
+        if (err) {
+            console.log(err);
+            callback(err, null);
+        } else if (results && results.length > 0) {
+            callback(null, results);
+        } else {
+            callback(null, results);
+        }
+    });
+},
+
+
+
 
 
 
@@ -234,7 +270,44 @@ DestinationContent: function (data, callback) {
     });
 },
 
-// 3
+
+
+// Pattaya 2
+
+
+
+Pattaya2: function (data, callback) {
+    async.parallel({
+      packageDetails: function (callback) {
+          Package.findOne({
+              _id:data.id,
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+
+    }, function (err, results) {
+        if (err) {
+            console.log(err);
+            callback(err, null);
+        } else if (results && results.length > 0) {
+            callback(null, results);
+        } else {
+            callback(null, results);
+        }
+    });
+},
+
+
+// 3   Destination Landing
 
 
 DestinationLand: function (data, callback) {
@@ -303,6 +376,9 @@ DestinationLand: function (data, callback) {
 ///
 
 
+//
+
+
 
 ActivitiesLand: function (data, callback) {
     async.parallel({
@@ -351,6 +427,22 @@ ActivitiesLand: function (data, callback) {
           });
       },
 
+      // DestinationImages: function (callback) {
+      //     Activities.find({
+      //         destination:data.id,
+      //         status: "true"
+      //     }).exec(function (err, found) {
+      //         if (err) {
+      //             console.log(err);
+      //             callback(err, null);
+      //         } else if (found) {
+      //             callback(null, found);
+      //         } else {
+      //             callback(null, found);
+      //         }
+      //     });
+      // },
+
     }, function (err, results) {
         if (err) {
             console.log(err);
@@ -365,10 +457,7 @@ ActivitiesLand: function (data, callback) {
 
 
 
-//////////
-
-
-
+////////// In Pattaya AND in Activity Landing
 ActivitiesImages: function (data, callback) {
     async.parallel({
       Images: function (callback) {
@@ -405,6 +494,7 @@ ActivitiesImages: function (data, callback) {
 
 WhatsHot: function (data, callback) {
     async.parallel({
+
       Events: function (callback) {
           WhatsHot.find({
               status: "true"
@@ -432,8 +522,48 @@ WhatsHot: function (data, callback) {
 },
 
 
+//
+
+
+
+
+WhatsHotDetails: function (data, callback) {
+    async.parallel({
+      Details: function (callback) {
+          WhatsHot.find({
+              _id:data.id,
+              status: "true"
+          }).exec(function (err, found) {
+              if (err) {
+                  console.log(err);
+                  callback(err, null);
+              } else if (found) {
+                  callback(null, found);
+              } else {
+                  callback(null, found);
+              }
+          });
+      },
+    }, function (err, results) {
+        if (err) {
+            console.log(err);
+            callback(err, null);
+        } else if (results && results.length > 0) {
+            callback(null, results);
+        } else {
+            callback(null, results);
+        }
+    });
+},
+
+// Whats Hot Internal Page
+
 
     //END
+
+
+
+
     allDestination: function (data, callback) {
         var newreturns = {};
         newreturns.data = [];

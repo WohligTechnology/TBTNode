@@ -28,13 +28,13 @@ var schema = new Schema({
     },
     type:{
       type:String,
-      enum:["all","day","night"]
+      enum:["day","night"]
     },
-    destination: [{
+    destination: {
         type: Schema.Types.ObjectId,
         ref: 'Destination',
         index: true
-    }],
+    },
     isSlider: {
         type: String,
         enum:["Yes","No"]
